@@ -1,0 +1,160 @@
+
+Discarded input sections
+
+ .text          0x00000000        0x0 timer.o
+ .data          0x00000000        0x0 timer.o
+ .bss           0x00000000        0x0 timer.o
+ .text.delay_ms
+                0x00000000       0x54 timer.o
+ .text          0x00000000        0x0 start.o
+ .data          0x00000000        0x0 start.o
+ .bss           0x00000000        0x0 start.o
+ .text          0x00000000        0x0 main.o
+ .data          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .text          0x00000000        0x0 modem.o
+ .data          0x00000000        0x0 modem.o
+ .bss           0x00000000        0x0 modem.o
+ .text          0x00000000        0x0 qspi.o
+ .data          0x00000000        0x0 qspi.o
+ .bss           0x00000000        0x0 qspi.o
+ .text          0x00000000        0x0 uart.o
+ .data          0x00000000        0x0 uart.o
+ .bss           0x00000000        0x0 uart.o
+ .text          0x00000000        0x0 printf.o
+ .data          0x00000000        0x0 printf.o
+ .bss           0x00000000        0x0 printf.o
+ .comment       0x00000000       0x4e printf.o
+ .ARM.attributes
+                0x00000000       0x35 printf.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x01001000         0x00004000         xr
+RAM              0x20000000         0x00010000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x20010000                _estack = 0x20010000
+
+.text           0x01001000      0x7b8
+                0x01001000                . = ALIGN (0x4)
+                0x01001000                __text_start__ = .
+ *(*.cortex_vectors)
+ .data.cortex_vectors
+                0x01001000       0x40 start.o
+                0x01001000                cortex_vectors
+ *(*.Reset_Handler)
+ .text.Reset_Handler
+                0x01001040       0x84 start.o
+                0x01001040                Reset_Handler
+ *(.text*)
+ .text.inti_timer
+                0x010010c4       0x28 timer.o
+                0x010010c4                inti_timer
+ .text.main     0x010010ec      0x1a8 main.o
+                0x010010ec                main
+ .text.send     0x01001294       0x20 modem.o
+                0x01001294                send
+ .text.Receive  0x010012b4       0xac modem.o
+                0x010012b4                Receive
+ .text.Check    0x01001360       0x9e modem.o
+                0x01001360                Check
+ *fill*         0x010013fe        0x2 
+ .text.Xmoden   0x01001400      0x184 modem.o
+                0x01001400                Xmoden
+ .text.QSPI_Init
+                0x01001584       0x6c qspi.o
+                0x01001584                QSPI_Init
+ .text.FLASH_EraseSector
+                0x010015f0       0x28 qspi.o
+                0x010015f0                FLASH_EraseSector
+ .text.CACHE_CleanAll
+                0x01001618       0x42 qspi.o
+                0x01001618                CACHE_CleanAll
+ .text.FLASH_ProgramPage
+                0x0100165a       0x2c qspi.o
+                0x0100165a                FLASH_ProgramPage
+ *fill*         0x01001686        0x2 
+ .text.SaveInFlash
+                0x01001688       0x28 qspi.o
+                0x01001688                SaveInFlash
+ .text.UART_Init
+                0x010016b0      0x108 uart.o
+                0x010016b0                UART_Init
+ *(.init)
+ *(.fini)
+ *(.rodata*)
+                0x010017b8                __text_end__ = .
+
+.glue_7         0x010017b8        0x0
+ .glue_7        0x010017b8        0x0 linker stubs
+
+.glue_7t        0x010017b8        0x0
+ .glue_7t       0x010017b8        0x0 linker stubs
+
+.vfp11_veneer   0x010017b8        0x0
+ .vfp11_veneer  0x010017b8        0x0 linker stubs
+
+.v4_bx          0x010017b8        0x0
+ .v4_bx         0x010017b8        0x0 linker stubs
+
+.iplt           0x010017b8        0x0
+ .iplt          0x010017b8        0x0 start.o
+
+.rel.dyn        0x010017b8        0x0
+ .rel.iplt      0x010017b8        0x0 start.o
+
+.data           0x20000000        0x4 load address 0x010017b8
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                __data_start__ = .
+ *(.data*)
+ .data.flag.2   0x20000000        0x1 modem.o
+                0x20000004                . = ALIGN (0x4)
+ *fill*         0x20000001        0x3 
+                0x20000004                __data_end__ = .
+
+.igot.plt       0x20000004        0x0 load address 0x010017bc
+ .igot.plt      0x20000004        0x0 start.o
+
+.bss            0x20000004        0x2 load address 0x010017bc
+                0x20000004                __bss_start__ = .
+ *(.bss*)
+ .bss.times.1   0x20000004        0x1 modem.o
+ .bss.number.0  0x20000005        0x1 modem.o
+                0x20000006                __bss_end__ = .
+LOAD timer.o
+LOAD start.o
+LOAD main.o
+LOAD modem.o
+LOAD qspi.o
+LOAD uart.o
+LOAD printf.o
+OUTPUT(main.exe elf32-littlearm)
+LOAD linker stubs
+
+.comment        0x00000000       0x4d
+ .comment       0x00000000       0x4d timer.o
+                                 0x4e (size before relaxing)
+ .comment       0x0000004d       0x4e start.o
+ .comment       0x0000004d       0x4e main.o
+ .comment       0x0000004d       0x4e modem.o
+ .comment       0x0000004d       0x4e qspi.o
+ .comment       0x0000004d       0x4e uart.o
+
+.ARM.attributes
+                0x00000000       0x32
+ .ARM.attributes
+                0x00000000       0x32 timer.o
+ .ARM.attributes
+                0x00000032       0x32 start.o
+ .ARM.attributes
+                0x00000064       0x32 main.o
+ .ARM.attributes
+                0x00000096       0x32 modem.o
+ .ARM.attributes
+                0x000000c8       0x32 qspi.o
+ .ARM.attributes
+                0x000000fa       0x32 uart.o
