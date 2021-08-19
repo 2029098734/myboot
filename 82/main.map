@@ -39,7 +39,7 @@ Linker script and memory map
 
                 0x20010000                _estack = 0x20010000
 
-.text           0x01001000      0x7b8
+.text           0x01001000      0x768
                 0x01001000                . = ALIGN (0x4)
                 0x01001000                __text_start__ = .
  *(*.cortex_vectors)
@@ -54,60 +54,60 @@ Linker script and memory map
  .text.inti_timer
                 0x010010c4       0x28 timer.o
                 0x010010c4                inti_timer
- .text.main     0x010010ec      0x1a8 main.o
+ .text.main     0x010010ec      0x158 main.o
                 0x010010ec                main
- .text.send     0x01001294       0x20 modem.o
-                0x01001294                send
- .text.Receive  0x010012b4       0xac modem.o
-                0x010012b4                Receive
- .text.Check    0x01001360       0x9e modem.o
-                0x01001360                Check
- *fill*         0x010013fe        0x2 
- .text.Xmoden   0x01001400      0x184 modem.o
-                0x01001400                Xmoden
+ .text.send     0x01001244       0x20 modem.o
+                0x01001244                send
+ .text.Receive  0x01001264       0xac modem.o
+                0x01001264                Receive
+ .text.Check    0x01001310       0x9e modem.o
+                0x01001310                Check
+ *fill*         0x010013ae        0x2 
+ .text.Xmoden   0x010013b0      0x184 modem.o
+                0x010013b0                Xmoden
  .text.QSPI_Init
-                0x01001584       0x6c qspi.o
-                0x01001584                QSPI_Init
+                0x01001534       0x6c qspi.o
+                0x01001534                QSPI_Init
  .text.FLASH_EraseSector
-                0x010015f0       0x28 qspi.o
-                0x010015f0                FLASH_EraseSector
+                0x010015a0       0x28 qspi.o
+                0x010015a0                FLASH_EraseSector
  .text.CACHE_CleanAll
-                0x01001618       0x42 qspi.o
-                0x01001618                CACHE_CleanAll
+                0x010015c8       0x42 qspi.o
+                0x010015c8                CACHE_CleanAll
  .text.FLASH_ProgramPage
-                0x0100165a       0x2c qspi.o
-                0x0100165a                FLASH_ProgramPage
- *fill*         0x01001686        0x2 
+                0x0100160a       0x2c qspi.o
+                0x0100160a                FLASH_ProgramPage
+ *fill*         0x01001636        0x2 
  .text.SaveInFlash
-                0x01001688       0x28 qspi.o
-                0x01001688                SaveInFlash
+                0x01001638       0x28 qspi.o
+                0x01001638                SaveInFlash
  .text.UART_Init
-                0x010016b0      0x108 uart.o
-                0x010016b0                UART_Init
+                0x01001660      0x108 uart.o
+                0x01001660                UART_Init
  *(.init)
  *(.fini)
  *(.rodata*)
-                0x010017b8                __text_end__ = .
+                0x01001768                __text_end__ = .
 
-.glue_7         0x010017b8        0x0
- .glue_7        0x010017b8        0x0 linker stubs
+.glue_7         0x01001768        0x0
+ .glue_7        0x01001768        0x0 linker stubs
 
-.glue_7t        0x010017b8        0x0
- .glue_7t       0x010017b8        0x0 linker stubs
+.glue_7t        0x01001768        0x0
+ .glue_7t       0x01001768        0x0 linker stubs
 
-.vfp11_veneer   0x010017b8        0x0
- .vfp11_veneer  0x010017b8        0x0 linker stubs
+.vfp11_veneer   0x01001768        0x0
+ .vfp11_veneer  0x01001768        0x0 linker stubs
 
-.v4_bx          0x010017b8        0x0
- .v4_bx         0x010017b8        0x0 linker stubs
+.v4_bx          0x01001768        0x0
+ .v4_bx         0x01001768        0x0 linker stubs
 
-.iplt           0x010017b8        0x0
- .iplt          0x010017b8        0x0 start.o
+.iplt           0x01001768        0x0
+ .iplt          0x01001768        0x0 start.o
 
-.rel.dyn        0x010017b8        0x0
- .rel.iplt      0x010017b8        0x0 start.o
+.rel.dyn        0x01001768        0x0
+ .rel.iplt      0x01001768        0x0 start.o
 
-.data           0x20000000        0x4 load address 0x010017b8
+.data           0x20000000        0x4 load address 0x01001768
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                __data_start__ = .
  *(.data*)
@@ -116,10 +116,10 @@ Linker script and memory map
  *fill*         0x20000001        0x3 
                 0x20000004                __data_end__ = .
 
-.igot.plt       0x20000004        0x0 load address 0x010017bc
+.igot.plt       0x20000004        0x0 load address 0x0100176c
  .igot.plt      0x20000004        0x0 start.o
 
-.bss            0x20000004        0x2 load address 0x010017bc
+.bss            0x20000004        0x2 load address 0x0100176c
                 0x20000004                __bss_start__ = .
  *(.bss*)
  .bss.times.1   0x20000004        0x1 modem.o
