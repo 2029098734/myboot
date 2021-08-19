@@ -93,7 +93,7 @@ void Reset_Handler(void)
 	{
 		for(;ram < &__data_end__;)
 		{
-			*ram,flash;
+			*ram = *flash;
 			flash ++;
 			ram ++;
 		}
