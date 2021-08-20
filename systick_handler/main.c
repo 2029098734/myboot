@@ -19,20 +19,27 @@ int main(void)
 			{
 				while(((UART1->USR) & 0x1)){}
 				UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
-				break;
+				(*(void(*) ())(*((uint32_t*)(0x01006000))))();			//bin文件顶部为RESET,没有中断向量表(相当于函数调用)
 			}
 			UART1->OFFSET_0.THR = 0x00;
 		} 
 	}
-	SCB->VTOR = 0x01005000;
-	__asm__ volatile ("dsb");								//数据同步屏障,确保之后使用新设置的向量表
-	(*(void(*) ())(*((uint32_t*)(0x01005000 + 0x4))))();    //第一个32位数据为栈顶指针,第二个为复位函数
+	
 }
 
 void SysTick_Handler(void)
 {
-	while(((UART1->USR) & 0x1)){}
-	UART1->OFFSET_0.THR = 0x10;
+	static uint8_t timer_number = 20;
+	if(timer_number > 0)
+	{
+		timer_number--;
+	}
+	else
+	{
+		while(((UART1->USR) & 0x1)){}
+		UART1->OFFSET_0.THR = 0x10;
+		timer_number = 20;
+	}
 }
 /* if((UART0->LSR) & 0x1)
 		{

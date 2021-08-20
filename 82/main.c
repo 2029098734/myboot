@@ -35,7 +35,7 @@ int main(void)
 				UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
 				break;
 			}
-			if((UART1->OFFSET_0.RBR == 0x01)) //从初始写入地址开始擦除128K区域
+			if((UART1->OFFSET_0.RBR == 0x01)) //从初始写入地址开始擦除128K区域,并开始传输
 			{
 				while(((UART1->USR) & 0x1)){}
 				UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
@@ -44,34 +44,33 @@ int main(void)
 					FLASH_EraseSector((0x01005000 + i*FLASH_SECTOR_SIZE));
 				}
 				
+				switch(Xmoden(&message))     //开始Xmodem传输
+				{
+					case ACK:        //传输完成一包数据后,将该包数据进行储存,并移动储存地址
+							SaveInFlash(&(message.Data[0]),address);
+							address += 0x80;
+							/* while(((UART1->USR) & 0x1)){}
+							UART1->OFFSET_0.THR = 0x13; */
+						break;
+					
+					case EOT:		//传输完成后,初始化message(可省略),切换储存地址address;
+							/* while(((UART1->USR) & 0x1)){}
+							UART1->OFFSET_0.THR = 0x21;
+							message.Start = 0;
+							message.Number = 0;
+							message.Inverse_Number = 0;
+							message.check_sum = 0;
+							for(int i = 0; i < 128; i++)
+							{
+								message.Data[i] = 0;
+							} */
+							address = (address & 0xFFFFF000) + 0x1000;
+						break;
+					
+					default:
+						break;
+				} 
 			}
-		} 
-
-		switch(Xmoden(&message))
-		{
-			case ACK:        //传输完成一包数据后,将该包数据进行储存,并移动储存地址
-					SaveInFlash(&(message.Data[0]),address);
-					address += 0x80;
-					/* while(((UART1->USR) & 0x1)){}
-					UART1->OFFSET_0.THR = 0x13; */
-				break;
-			
-			case EOT:		//传输完成后,初始化message(可省略),切换储存地址address;
-					/* while(((UART1->USR) & 0x1)){}
-					UART1->OFFSET_0.THR = 0x21;
-					message.Start = 0;
-					message.Number = 0;
-					message.Inverse_Number = 0;
-					message.check_sum = 0;
-					for(int i = 0; i < 128; i++)
-					{
-						message.Data[i] = 0;
-					} */
-					address = (address & 0xFFFFF000) + 0x1000;
-				break;
-			
-			default:
-				break;
 		} 
 	}	
 	__asm__ volatile("cpsie i":::"memory"); //开中断	

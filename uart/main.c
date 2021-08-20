@@ -18,9 +18,7 @@ int main(void)
 			UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
 		} 
 	}
-	SCB->VTOR = 0x01006000;
-	__asm__ volatile ("dsb");								//数据同步屏障,确保之后使用新设置的向量表
-	(*(void(*) ())(*((uint32_t*)(0x01006000 + 0x4))))();    //第一个32位数据为栈顶指针,第二个为复位函数
+	return 0;
 }
 
 

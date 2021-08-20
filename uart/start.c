@@ -11,16 +11,17 @@ extern  int main(void);
 typedef void (*Handler)(void);
 
 typedef struct{
-	void* estack;
-	Handler vector[15];
+	// void* estack;
+	//Handler vector[15];
+	Handler vector;
 } Vectors;
 
 void Reset_Handler(void);
 
 Vectors cortex_vectors = {
-	&_estack,
-	{
-		[0] = Reset_Handler,
+	// &_estack,
+	// {
+		// [0] = Reset_Handler,
 		// [1] = NMI_Handler;
 		// [2] = HardFault_Handler;
 		// [3] = MemManage_Handler;
@@ -30,7 +31,8 @@ Vectors cortex_vectors = {
 		// [11] = DebugMon_Handler;
 		// [13] = PendSV_Handler;
 		// [14] = SysTick_Handler;
-	}	
+	// }
+	Reset_Handler,	
 };
 
 
