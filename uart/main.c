@@ -6,6 +6,22 @@
 int main(void)
 {	
 	UART_Init(UART1);
+	inti_timer(TIMER0);
+	inti_timer(TIMER1);
+	inti_timer(TIMER2);
+	inti_timer(TIMER3);
+	NVIC->ISER[0] |= 0x1 << 9;
+	TIMER0->LoadCount = SYSCTRL->PCLK_1MS_VAL*4000;	//设定三秒超时限制
+	TIMER0->ControlReg = 0x00000003;
+	NVIC->ISER[0] |= 0x1 << 10;
+	TIMER1->LoadCount = SYSCTRL->PCLK_1MS_VAL*3000;	
+	TIMER1->ControlReg = 0x00000003;
+	NVIC->ISER[0] |= 0x1 << 11;
+	TIMER2->LoadCount = SYSCTRL->PCLK_1MS_VAL*2000;	
+	TIMER2->ControlReg = 0x00000003;
+	NVIC->ISER[0] |= 0x1 << 12;
+	TIMER3->LoadCount = SYSCTRL->PCLK_1MS_VAL*1000;
+	TIMER3->ControlReg = 0x00000003;
 	while(1)
 	{
 		if((UART1->LSR) & 0x1)

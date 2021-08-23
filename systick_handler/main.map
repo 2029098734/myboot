@@ -67,6 +67,14 @@ Discarded input sections
                 0x00000000        0xe irqn.o
  .text.SysTick_Handler
                 0x00000000        0xe irqn.o
+ .text.TIM_0_IRQHandler
+                0x00000000        0xe irqn.o
+ .text.TIM_1_IRQHandler
+                0x00000000        0xe irqn.o
+ .text.TIM_2_IRQHandler
+                0x00000000        0xe irqn.o
+ .text.TIM_3_IRQHandler
+                0x00000000        0xe irqn.o
  .text          0x00000000        0x0 uart.o
  .data          0x00000000        0x0 uart.o
  .bss           0x00000000        0x0 uart.o
@@ -82,7 +90,7 @@ Linker script and memory map
 
                 0x20010000                _estack = 0x20010000
 
-.text           0x01005000      0x8b4
+.text           0x01005000      0x970
                 0x01005000                . = ALIGN (0x4)
                 0x01005000                __text_start__ = .
  *(*.cortex_vectors)
@@ -97,168 +105,171 @@ Linker script and memory map
                 0x01005484        0xe irqn.o
  *(.text*)
  *fill*         0x01005492        0x2 
- .text.main     0x01005494       0x74 main.o
+ .text.main     0x01005494       0x64 main.o
                 0x01005494                main
  .text.SysTick_Handler
-                0x01005508       0x48 main.o
-                0x01005508                SysTick_Handler
+                0x010054f8       0x48 main.o
+                0x010054f8                SysTick_Handler
+ .text.TIM_0_IRQHandler
+                0x01005540       0x34 main.o
+                0x01005540                TIM_0_IRQHandler
+ .text.TIM_1_IRQHandler
+                0x01005574       0x34 main.o
+                0x01005574                TIM_1_IRQHandler
+ .text.TIM_2_IRQHandler
+                0x010055a8       0x34 main.o
+                0x010055a8                TIM_2_IRQHandler
+ .text.TIM_3_IRQHandler
+                0x010055dc       0x34 main.o
+                0x010055dc                TIM_3_IRQHandler
  .text.DMA_IRQHandler
-                0x01005550        0xe irqn.o
-                0x01005550                DMA_IRQHandler
+                0x01005610        0xe irqn.o
+                0x01005610                DMA_IRQHandler
  .text.USB_IRQHandler
-                0x0100555e        0xe irqn.o
-                0x0100555e                USB_IRQHandler
+                0x0100561e        0xe irqn.o
+                0x0100561e                USB_IRQHandler
  .text.USBDMA_IRQHandler
-                0x0100556c        0xe irqn.o
-                0x0100556c                USBDMA_IRQHandler
+                0x0100562c        0xe irqn.o
+                0x0100562c                USBDMA_IRQHandler
  .text.LCD_IRQHandler
-                0x0100557a        0xe irqn.o
-                0x0100557a                LCD_IRQHandler
+                0x0100563a        0xe irqn.o
+                0x0100563a                LCD_IRQHandler
  .text.SCI0_IRQHandler
-                0x01005588        0xe irqn.o
-                0x01005588                SCI0_IRQHandler
+                0x01005648        0xe irqn.o
+                0x01005648                SCI0_IRQHandler
  .text.UART0_IRQHandler
-                0x01005596        0xe irqn.o
-                0x01005596                UART0_IRQHandler
+                0x01005656        0xe irqn.o
+                0x01005656                UART0_IRQHandler
  .text.UART1_IRQHandler
-                0x010055a4        0xe irqn.o
-                0x010055a4                UART1_IRQHandler
+                0x01005664        0xe irqn.o
+                0x01005664                UART1_IRQHandler
  .text.SPI0_IRQHandler
-                0x010055b2        0xe irqn.o
-                0x010055b2                SPI0_IRQHandler
+                0x01005672        0xe irqn.o
+                0x01005672                SPI0_IRQHandler
  .text.CRYPT0_IRQHandler
-                0x010055c0        0xe irqn.o
-                0x010055c0                CRYPT0_IRQHandler
- .text.TIM0_0_IRQHandler
-                0x010055ce        0xe irqn.o
-                0x010055ce                TIM0_0_IRQHandler
- .text.TIM0_1_IRQHandler
-                0x010055dc        0xe irqn.o
-                0x010055dc                TIM0_1_IRQHandler
- .text.TIM0_2_IRQHandler
-                0x010055ea        0xe irqn.o
-                0x010055ea                TIM0_2_IRQHandler
- .text.TIM0_3_IRQHandler
-                0x010055f8        0xe irqn.o
-                0x010055f8                TIM0_3_IRQHandler
+                0x01005680        0xe irqn.o
+                0x01005680                CRYPT0_IRQHandler
  .text.EXTI0_IRQHandler
-                0x01005606        0xe irqn.o
-                0x01005606                EXTI0_IRQHandler
+                0x0100568e        0xe irqn.o
+                0x0100568e                EXTI0_IRQHandler
  .text.EXTI1_IRQHandler
-                0x01005614        0xe irqn.o
-                0x01005614                EXTI1_IRQHandler
+                0x0100569c        0xe irqn.o
+                0x0100569c                EXTI1_IRQHandler
  .text.EXTI2_IRQHandler
-                0x01005622        0xe irqn.o
-                0x01005622                EXTI2_IRQHandler
+                0x010056aa        0xe irqn.o
+                0x010056aa                EXTI2_IRQHandler
  .text.RTC_IRQHandler
-                0x01005630        0xe irqn.o
-                0x01005630                RTC_IRQHandler
+                0x010056b8        0xe irqn.o
+                0x010056b8                RTC_IRQHandler
  .text.SENSOR_IRQHandler
-                0x0100563e        0xe irqn.o
-                0x0100563e                SENSOR_IRQHandler
+                0x010056c6        0xe irqn.o
+                0x010056c6                SENSOR_IRQHandler
  .text.TRNG_IRQHandler
-                0x0100564c        0xe irqn.o
-                0x0100564c                TRNG_IRQHandler
+                0x010056d4        0xe irqn.o
+                0x010056d4                TRNG_IRQHandler
  .text.ADC0_IRQHandler
-                0x0100565a        0xe irqn.o
-                0x0100565a                ADC0_IRQHandler
+                0x010056e2        0xe irqn.o
+                0x010056e2                ADC0_IRQHandler
  .text.SSC_IRQHandler
-                0x01005668        0xe irqn.o
-                0x01005668                SSC_IRQHandler
- .text.TIM0_4_IRQHandler
-                0x01005676        0xe irqn.o
-                0x01005676                TIM0_4_IRQHandler
- .text.TIM0_5_IRQHandler
-                0x01005684        0xe irqn.o
-                0x01005684                TIM0_5_IRQHandler
+                0x010056f0        0xe irqn.o
+                0x010056f0                SSC_IRQHandler
+ .text.TIM_4_IRQHandler
+                0x010056fe        0xe irqn.o
+                0x010056fe                TIM_4_IRQHandler
+ .text.TIM_5_IRQHandler
+                0x0100570c        0xe irqn.o
+                0x0100570c                TIM_5_IRQHandler
  .text.KBD_IRQHandler
-                0x01005692        0xe irqn.o
-                0x01005692                KBD_IRQHandler
+                0x0100571a        0xe irqn.o
+                0x0100571a                KBD_IRQHandler
  .text.MSR_IRQHandler
-                0x010056a0        0xe irqn.o
-                0x010056a0                MSR_IRQHandler
+                0x01005728        0xe irqn.o
+                0x01005728                MSR_IRQHandler
  .text.EXTI3_IRQHandler
-                0x010056ae        0xe irqn.o
-                0x010056ae                EXTI3_IRQHandler
+                0x01005736        0xe irqn.o
+                0x01005736                EXTI3_IRQHandler
  .text.SPI1_IRQHandler
-                0x010056bc        0xe irqn.o
-                0x010056bc                SPI1_IRQHandler
+                0x01005744        0xe irqn.o
+                0x01005744                SPI1_IRQHandler
  .text.SPI2_IRQHandler
-                0x010056ca        0xe irqn.o
-                0x010056ca                SPI2_IRQHandler
+                0x01005752        0xe irqn.o
+                0x01005752                SPI2_IRQHandler
  .text.SCI2_IRQHandler
-                0x010056d8        0xe irqn.o
-                0x010056d8                SCI2_IRQHandler
+                0x01005760        0xe irqn.o
+                0x01005760                SCI2_IRQHandler
  .text.UART2_IRQHandler
-                0x010056e6        0xe irqn.o
-                0x010056e6                UART2_IRQHandler
+                0x0100576e        0xe irqn.o
+                0x0100576e                UART2_IRQHandler
  .text.UART3_IRQHandler
-                0x010056f4        0xe irqn.o
-                0x010056f4                UART3_IRQHandler
+                0x0100577c        0xe irqn.o
+                0x0100577c                UART3_IRQHandler
  .text.QSPI_IRQHandler
-                0x01005702        0xe irqn.o
-                0x01005702                QSPI_IRQHandler
+                0x0100578a        0xe irqn.o
+                0x0100578a                QSPI_IRQHandler
  .text.I2C0_IRQHandler
-                0x01005710        0xe irqn.o
-                0x01005710                I2C0_IRQHandler
+                0x01005798        0xe irqn.o
+                0x01005798                I2C0_IRQHandler
  .text.EXTI4_IRQHandler
-                0x0100571e        0xe irqn.o
-                0x0100571e                EXTI4_IRQHandler
+                0x010057a6        0xe irqn.o
+                0x010057a6                EXTI4_IRQHandler
  .text.EXTI5_IRQHandler
-                0x0100572c        0xe irqn.o
-                0x0100572c                EXTI5_IRQHandler
- .text.TIM0_6_IRQHandler
-                0x0100573a        0xe irqn.o
-                0x0100573a                TIM0_6_IRQHandler
- .text.TIM0_7_IRQHandler
-                0x01005748        0xe irqn.o
-                0x01005748                TIM0_7_IRQHandler
+                0x010057b4        0xe irqn.o
+                0x010057b4                EXTI5_IRQHandler
+ .text.TIM_6_IRQHandler
+                0x010057c2        0xe irqn.o
+                0x010057c2                TIM_6_IRQHandler
+ .text.TIM_7_IRQHandler
+                0x010057d0        0xe irqn.o
+                0x010057d0                TIM_7_IRQHandler
  .text.DCMI_IRQHandler
-                0x01005756        0xe irqn.o
-                0x01005756                DCMI_IRQHandler
+                0x010057de        0xe irqn.o
+                0x010057de                DCMI_IRQHandler
  .text.QR_IRQHandler
-                0x01005764        0xe irqn.o
-                0x01005764                QR_IRQHandler
+                0x010057ec        0xe irqn.o
+                0x010057ec                QR_IRQHandler
  .text.GPU_IRQHandler
-                0x01005772        0xe irqn.o
-                0x01005772                GPU_IRQHandler
+                0x010057fa        0xe irqn.o
+                0x010057fa                GPU_IRQHandler
  .text.AWD_IRQHandler
-                0x01005780        0xe irqn.o
-                0x01005780                AWD_IRQHandler
+                0x01005808        0xe irqn.o
+                0x01005808                AWD_IRQHandler
  .text.DAC_IRQHandler
-                0x0100578e        0xe irqn.o
-                0x0100578e                DAC_IRQHandler
+                0x01005816        0xe irqn.o
+                0x01005816                DAC_IRQHandler
  .text.SPI5_IRQHandler
-                0x0100579c        0xe irqn.o
-                0x0100579c                SPI5_IRQHandler
- *fill*         0x010057aa        0x2 
+                0x01005824        0xe irqn.o
+                0x01005824                SPI5_IRQHandler
+ *fill*         0x01005832        0x2 
+ .text.init_irqn
+                0x01005834       0x34 irqn.o
+                0x01005834                init_irqn
  .text.UART_Init
-                0x010057ac      0x108 uart.o
-                0x010057ac                UART_Init
+                0x01005868      0x108 uart.o
+                0x01005868                UART_Init
  *(.init)
  *(.fini)
  *(.rodata*)
-                0x010058b4                __text_end__ = .
+                0x01005970                __text_end__ = .
 
-.glue_7         0x010058b4        0x0
- .glue_7        0x010058b4        0x0 linker stubs
+.glue_7         0x01005970        0x0
+ .glue_7        0x01005970        0x0 linker stubs
 
-.glue_7t        0x010058b4        0x0
- .glue_7t       0x010058b4        0x0 linker stubs
+.glue_7t        0x01005970        0x0
+ .glue_7t       0x01005970        0x0 linker stubs
 
-.vfp11_veneer   0x010058b4        0x0
- .vfp11_veneer  0x010058b4        0x0 linker stubs
+.vfp11_veneer   0x01005970        0x0
+ .vfp11_veneer  0x01005970        0x0 linker stubs
 
-.v4_bx          0x010058b4        0x0
- .v4_bx         0x010058b4        0x0 linker stubs
+.v4_bx          0x01005970        0x0
+ .v4_bx         0x01005970        0x0 linker stubs
 
-.iplt           0x010058b4        0x0
- .iplt          0x010058b4        0x0 start.o
+.iplt           0x01005970        0x0
+ .iplt          0x01005970        0x0 start.o
 
-.rel.dyn        0x010058b4        0x0
- .rel.iplt      0x010058b4        0x0 start.o
+.rel.dyn        0x01005970        0x0
+ .rel.iplt      0x01005970        0x0 start.o
 
-.data           0x20000000        0x4 load address 0x010058b4
+.data           0x20000000        0x4 load address 0x01005970
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                __data_start__ = .
  *(.data*)
@@ -268,7 +279,7 @@ Linker script and memory map
  *fill*         0x20000001        0x3 
                 0x20000004                __data_end__ = .
 
-.igot.plt       0x20000004        0x0 load address 0x010058b8
+.igot.plt       0x20000004        0x0 load address 0x01005974
  .igot.plt      0x20000004        0x0 start.o
 
 .bss            0x20000004        0x0

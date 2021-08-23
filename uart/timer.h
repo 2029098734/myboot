@@ -19,9 +19,12 @@ typedef struct
 
 
 #define TIMER0     			((TIM_TypeDef *) TIMER0_BASE)
+#define TIMER1     			((TIM_TypeDef *) (TIMER0_BASE + 0x14))
+#define TIMER2     			((TIM_TypeDef *) (TIMER0_BASE + 0x28))
+#define TIMER3     			((TIM_TypeDef *) (TIMER0_BASE + 0x3c))
 
 void delay_ms(uint32_t ms);
-void inti_timer(void);
+void inti_timer(TIM_TypeDef* timer);
 
 
 

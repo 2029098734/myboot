@@ -20,6 +20,7 @@ int main(void)
 		{
 			if(UART1->OFFSET_0.RBR == 0x11)  //输出flash中储存的信息
 			{
+				while(((UART1->USR) & 0x1)){}
 				UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
 				uint32_t putAddress = 0x01005000;
 				while(putAddress < address)	//从初始地址至现在的写入地址
@@ -29,12 +30,13 @@ int main(void)
 					putAddress += 1;
 				}
 			}
-			if((UART1->OFFSET_0.RBR == 0x73))	//结束Xmodem传输
+			if(UART1->OFFSET_0.RBR == 0x20)  //退出boot
 			{
 				while(((UART1->USR) & 0x1)){}
 				UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
 				break;
 			}
+			
 			if((UART1->OFFSET_0.RBR == 0x01)) //从初始写入地址开始擦除128K区域,并开始传输
 			{
 				while(((UART1->USR) & 0x1)){}
@@ -43,33 +45,45 @@ int main(void)
 				{
 					FLASH_EraseSector((0x01005000 + i*FLASH_SECTOR_SIZE));
 				}
-				
-				switch(Xmoden(&message))     //开始Xmodem传输
+				while(1)
 				{
-					case ACK:        //传输完成一包数据后,将该包数据进行储存,并移动储存地址
-							SaveInFlash(&(message.Data[0]),address);
-							address += 0x80;
-							/* while(((UART1->USR) & 0x1)){}
-							UART1->OFFSET_0.THR = 0x13; */
-						break;
-					
-					case EOT:		//传输完成后,初始化message(可省略),切换储存地址address;
-							/* while(((UART1->USR) & 0x1)){}
-							UART1->OFFSET_0.THR = 0x21;
-							message.Start = 0;
-							message.Number = 0;
-							message.Inverse_Number = 0;
-							message.check_sum = 0;
-							for(int i = 0; i < 128; i++)
-							{
-								message.Data[i] = 0;
-							} */
-							address = (address & 0xFFFFF000) + 0x1000;
-						break;
-					
-					default:
-						break;
-				} 
+					switch(Xmoden(&message))     //开始Xmodem传输
+					{
+						case ACK:        //传输完成一包数据后,将该包数据进行储存,并移动储存地址
+								SaveInFlash(&(message.Data[0]),address);
+								address += 0x80;
+								/* while(((UART1->USR) & 0x1)){}
+								UART1->OFFSET_0.THR = 0x13; */
+							break;
+						
+						case EOT:		//传输完成后,初始化message(可省略),切换储存地址address;
+								/* while(((UART1->USR) & 0x1)){}
+								UART1->OFFSET_0.THR = 0x21;
+								message.Start = 0;
+								message.Number = 0;
+								message.Inverse_Number = 0;
+								message.check_sum = 0;
+								for(int i = 0; i < 128; i++)
+								{
+									message.Data[i] = 0;
+								} */
+								address = (address & 0xFFFFF000) + 0x1000;
+							break;
+						
+						default:
+							break;
+					}
+					if((UART1->LSR) & 0x1)
+					{
+						if(UART1->OFFSET_0.RBR == 0x02)  //退出Xmodem
+						{
+							while(((UART1->USR) & 0x1)){}
+							UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
+							break;
+						} 
+					}
+				}
+				
 			}
 		} 
 	}	

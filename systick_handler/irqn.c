@@ -1,3 +1,5 @@
+#include"irqn.h"
+
 __attribute__((weak)) void Reset_Handler(void){}
 __attribute__((weak)) void NMI_Handler(void){}
 __attribute__((weak)) void HardFault_Handler(void){}
@@ -17,10 +19,10 @@ __attribute__((weak)) void UART0_IRQHandler(void){}
 __attribute__((weak)) void UART1_IRQHandler(void){}
 __attribute__((weak)) void SPI0_IRQHandler(void){}
 __attribute__((weak)) void CRYPT0_IRQHandler(void){}
-__attribute__((weak)) void TIM0_0_IRQHandler(void){}
-__attribute__((weak)) void TIM0_1_IRQHandler(void){}
-__attribute__((weak)) void TIM0_2_IRQHandler(void){}
-__attribute__((weak)) void TIM0_3_IRQHandler(void){}
+__attribute__((weak)) void TIM_0_IRQHandler(void){}
+__attribute__((weak)) void TIM_1_IRQHandler(void){}
+__attribute__((weak)) void TIM_2_IRQHandler(void){}
+__attribute__((weak)) void TIM_3_IRQHandler(void){}
 __attribute__((weak)) void EXTI0_IRQHandler(void){}
 __attribute__((weak)) void EXTI1_IRQHandler(void){}
 __attribute__((weak)) void EXTI2_IRQHandler(void){}
@@ -29,8 +31,8 @@ __attribute__((weak)) void SENSOR_IRQHandler(void){}
 __attribute__((weak)) void TRNG_IRQHandler(void){}
 __attribute__((weak)) void ADC0_IRQHandler(void){}
 __attribute__((weak)) void SSC_IRQHandler(void){}
-__attribute__((weak)) void TIM0_4_IRQHandler(void){}
-__attribute__((weak)) void TIM0_5_IRQHandler(void){}
+__attribute__((weak)) void TIM_4_IRQHandler(void){}
+__attribute__((weak)) void TIM_5_IRQHandler(void){}
 __attribute__((weak)) void KBD_IRQHandler(void){}
 __attribute__((weak)) void MSR_IRQHandler(void){}
 __attribute__((weak)) void EXTI3_IRQHandler(void){}
@@ -46,8 +48,8 @@ __attribute__((weak)) void QSPI_IRQHandler(void){}
 __attribute__((weak)) void I2C0_IRQHandler(void){}
 __attribute__((weak)) void EXTI4_IRQHandler(void){}
 __attribute__((weak)) void EXTI5_IRQHandler(void){}
-__attribute__((weak)) void TIM0_6_IRQHandler(void){}
-__attribute__((weak)) void TIM0_7_IRQHandler(void){}
+__attribute__((weak)) void TIM_6_IRQHandler(void){}
+__attribute__((weak)) void TIM_7_IRQHandler(void){}
 
 __attribute__((weak)) void DCMI_IRQHandler(void){}
    
@@ -57,3 +59,12 @@ __attribute__((weak)) void GPU_IRQHandler(void){}
 __attribute__((weak)) void AWD_IRQHandler(void){}
 __attribute__((weak)) void DAC_IRQHandler(void){}
 __attribute__((weak)) void SPI5_IRQHandler(void){}
+
+void init_irqn(void)
+{
+    //SCB -> AIRCR =  (SCB->AIRCR & 0xFFFFF8FF) | (0x5 << 8 ); //两位抢占优先级,一位子优先级
+    NVIC->IP[9] = 0x00;
+    NVIC->IP[10] = 0x40;
+    NVIC->IP[11] = 0x60;
+    NVIC->IP[12] = 0x80;
+}
