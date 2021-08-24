@@ -37,11 +37,11 @@ int main(void)
 				break;
 			}
 			
-			if((UART1->OFFSET_0.RBR == 0x01)) //从初始写入地址开始擦除128K区域,并开始传输
+			if((UART1->OFFSET_0.RBR == 0x01)) //从初始写入地址开始擦除32K区域,并开始传输
 			{
 				while(((UART1->USR) & 0x1)){}
 				UART1->OFFSET_0.THR = UART1->OFFSET_0.RBR;
-				for(int i = 0;i < 32; i++)
+				for(int i = 0;i < 8; i++)
 				{
 					FLASH_EraseSector((0x01005000 + i*FLASH_SECTOR_SIZE));
 				}

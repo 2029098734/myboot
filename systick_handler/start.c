@@ -86,9 +86,10 @@ Vectors cortex_vectors = {
 
 void Reset_Handler(void)
 {
-	unsigned int *flash, *ram;
+	unsigned int *flash, *ram;			
 	flash = &__text_end__;
 	ram = &__data_start__;
+	//将data段从flash复制到RAM中
 	if(!(flash == ram))
 	{
 		for(;ram < &__data_end__;)
@@ -98,11 +99,11 @@ void Reset_Handler(void)
 			ram ++;
 		}
 	}
-	
+	//初始化BSS段
 	for(ram = &__bss_start__; ram < &__bss_end__; ram ++)
 	{
 		*ram = 0;
 	}
 	SYSCTRL->FREQ_SEL |=  0x200F395A;    //PLL:5'h0F 192MHz; 
-	main();
+	main();								//跳转至主程序
 }
