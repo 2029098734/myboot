@@ -62,7 +62,7 @@ __attribute__((weak)) void SPI5_IRQHandler(void){}
 
 void init_irqn(void)
 {
-    //SCB -> AIRCR =  (SCB->AIRCR & 0xFFFFF8FF) | (0x5 << 8 ); //两位抢占优先级,一位子优先级
+    SCB -> AIRCR =  (SCB->AIRCR & 0xFFFFF8FF) | (0x5 << 8 ); //两位抢占优先级,一位子优先级
     NVIC->IP[9] = 0x00;
     NVIC->IP[10] = 0x40;
     NVIC->IP[11] = 0x60;

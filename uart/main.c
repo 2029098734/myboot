@@ -11,7 +11,7 @@ int main(void)
 	inti_timer(TIMER2);
 	inti_timer(TIMER3);
 	NVIC->ISER[0] |= 0x1 << 9;
-	TIMER0->LoadCount = SYSCTRL->PCLK_1MS_VAL*4000;	//设定三秒超时限制
+	TIMER0->LoadCount = SYSCTRL->PCLK_1MS_VAL*4000;	//设定三秒触发中断
 	TIMER0->ControlReg = 0x00000003;
 	NVIC->ISER[0] |= 0x1 << 10;
 	TIMER1->LoadCount = SYSCTRL->PCLK_1MS_VAL*3000;	

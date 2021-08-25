@@ -14,7 +14,6 @@ void QSPI_Init(void)
 
 uint8_t FLASH_EraseSector(uint32_t sectorAddress)
 {
-	CACHE_CleanAll(CACHE);
 	return ROM_QSPI_EraseSector(NULL, sectorAddress);
 }
 

@@ -7,8 +7,8 @@
 
 int main(void)
 {	
-	//SysTick->LOAD = (0x00FFFFFF & 0x927C00);
-	//SysTick->CTRL = 0x00000007; //使能系统时钟,使能中断,使用内部处理器时钟源
+	SysTick->LOAD = (0x00FFFFFF & 0x927C00);
+	SysTick->CTRL = 0x00000007; //使能系统定时器,使能中断,使用内部处理器时钟源
 	UART_Init(UART1);
 	init_irqn();
 	while(((UART1->USR) & 0x1)){}
@@ -61,9 +61,9 @@ void TIM_1_IRQHandler(void)
 	{
 		while(((UART1->USR) & 0x1)){}
 		UART1->OFFSET_0.THR = 0x51;
-		while(1)
+/* 		while(1)
 		{
-		}
+		} */
 	}
 }
 void TIM_2_IRQHandler(void)
@@ -72,9 +72,9 @@ void TIM_2_IRQHandler(void)
 	{
 		while(((UART1->USR) & 0x1)){}
 		UART1->OFFSET_0.THR = 0x52;
-		while(1)
+/* 		while(1)
 		{
-		}
+		} */
 	}
 
 	
